@@ -52,7 +52,11 @@ function draw() {
     drawTable(flat,rent,gas_bill,elec_bill,owed);
 
     again_btn.mousePressed( function(){
-      takeInput();
+      check = takeInput();
+
+      if(check==null){
+        homepage=true;
+      }
     })
   }
 
@@ -62,17 +66,23 @@ function takeInput(){
   homepage=false;
   all_meter_nums = table.getColumn('meter_no');
   row_no = getMeterNum(all_meter_nums);
+  if (row_no==null){
+    return null;
+  }
   building = table.getString(row_no,0);
-  elec_bill = window.prompt("ইলেক্ট্রিক বিল লিখুনঃ ");
+  elec_bill = prompt("ইলেক্ট্রিক বিল লিখুনঃ ");
   if (!elec_bill) elec_bill = '0';
-  owed = window.prompt("বকেয়াঃ ");
+  owed = prompt("বকেয়াঃ ");
   if (!owed) owed = '0';
 }
 
 function getMeterNum(all_meter_nums){
   let str = "মিটার নাম্বার দিন: ";
   while (true){
-    meter_num = window.prompt(str);
+    meter_num = prompt(str);
+    if (meter_num == null){
+      return null;
+    }
     row = all_meter_nums.indexOf(meter_num);
     if (row==-1){
       str = "মিটার নাম্বারটি ভুল হয়েছে\nসঠিক মিটার নাম্বার দিনঃ ";
