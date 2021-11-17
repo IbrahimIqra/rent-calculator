@@ -3,6 +3,17 @@ let building,table,row_no;
 let meter_num, elec_bill, owed;
 let start_btn, again_btn;
 
+let bn_numbers = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+
+function convertEn2Bn(num){
+  bnNum = ''
+  for(let digit of num){
+    bnNum+=bn_numbers[int(digit)];
+  }
+  return bnNum;
+}
+
+
 function preload(){
   table = loadTable('rents.csv','csv','header');
 }
@@ -53,7 +64,9 @@ function takeInput(){
   row_no = getMeterNum(all_meter_nums);
   building = table.getString(row_no,0);
   elec_bill = window.prompt("ইলেক্ট্রিক বিল লিখুনঃ ");
+  if (!elec_bill) elec_bill = '0';
   owed = window.prompt("বকেয়াঃ ");
+  if (!owed) owed = '0';
 }
 
 function getMeterNum(all_meter_nums){
@@ -76,7 +89,7 @@ function drawBox(txt,txt_sz,x,y,w,h){
   rect(x,y,w,h);
   fill(0);
   textSize(txt_sz);
-  text(txt,x+w/10,y+10,w,h);
+  text(txt,x+w/10,y+15,w,h);
 }
 
 function drawTable(flat_name,rent,gas,elec,owed){
@@ -88,32 +101,35 @@ function drawTable(flat_name,rent,gas,elec,owed){
   x=x-w/2;
 
   //At first Printing Building Name
-  drawBox(building,35,x,y,w,h);
+  drawBox(building,35,x,y,w,h+10);
   y=y+1.5*h;
 
   //Now draw the actual table
-  drawBox(flat_name,32,x,y,w,h);
-  y=y+h;
+  // drawBox(flat_name+'\n#'+meter_num,32,x,y,w,h+40);
+  drawBox(flat_name,32,x,y,w,h+10);
+  y=y+h+10;
+  drawBox('মিটার #'+meter_num,32,x,y,w,h+10);
+  y=y+h+10;
   w=w/2;
   drawBox('ভাড়াঃ ',22,x,y,w+30,h);
-  drawBox(rent,22,x+w+30,y,w-30,h);
+  drawBox(convertEn2Bn(rent)+'/=',22,x+w+30,y,w-30,h);
   sum+=int(rent);
   y=y+h;
   drawBox('গ্যাস বিলঃ ',22,x,y,w+30,h);
-  drawBox(gas,22,x+w+30,y,w-30,h);
+  drawBox(convertEn2Bn(gas)+'/=',22,x+w+30,y,w-30,h);
   sum+=int(gas);
   y=y+h;
   drawBox('ইলেক্ট্রিক বিলঃ ',22,x,y,w+30,h);
-  drawBox(elec,22,x+w+30,y,w-30,h);
+  drawBox(convertEn2Bn(elec)+'/=',22,x+w+30,y,w-30,h);
   sum+=int(elec);
   y=y+h;
   drawBox("বকেয়াঃ ",22,x,y,w+30,h);
-  drawBox(owed,22,x+w+30,y,w-30,h);
-  sum+= (owed) ? int(owed):0;
+  drawBox(convertEn2Bn(owed)+'/=',22,x+w+30,y,w-30,h);
+  sum+= int(owed);
   y=y+h;
 
   drawBox('মোটঃ ',32,x,y,w+30,h);
-  drawBox(sum,22,x+w+30,y,w-30,h);
+  drawBox(convertEn2Bn(str(sum))+'/=',22,x+w+30,y,w-30,h);
 
   x=windowWidth/2;
   again_btn.position(x-w/3,y+h+15);
