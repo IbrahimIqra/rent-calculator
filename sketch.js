@@ -108,7 +108,7 @@ function drawTable(flat_name,rent,gas,elec,owed){
   // drawBox(flat_name+'\n#'+meter_num,32,x,y,w,h+40);
   drawBox(flat_name,32,x,y,w,h+10);
   y=y+h+10;
-  drawBox('মিটার #'+meter_num,32,x,y,w,h+10);
+  drawBox('মিটার নং #'+meter_num,28,x,y,w,h+10);
   y=y+h+10;
   w=w/2;
   drawBox('ভাড়াঃ ',22,x,y,w+30,h);
