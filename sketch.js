@@ -37,7 +37,9 @@ function draw() {
     start_btn.style('font-size: 30px');
 
     start_btn.mousePressed( function(){
-      takeInput();
+      if(takeInput() == "cancelled"){
+        homepage=true;
+      }
     })
   }
   // TABLE PAGE
@@ -52,11 +54,10 @@ function draw() {
     drawTable(flat,rent,gas_bill,elec_bill,owed);
 
     again_btn.mousePressed( function(){
-      check = takeInput();
-
-      if(check==null){
+      if(takeInput() == "cancelled"){
         homepage=true;
       }
+      // takeInput();
     })
   }
 
@@ -65,10 +66,11 @@ function draw() {
 function takeInput(){
   homepage=false;
   all_meter_nums = table.getColumn('meter_no');
-  row_no = getMeterNum(all_meter_nums);
-  if (row_no==null){
-    return null;
+  mtr_idx = getMeterNum(all_meter_nums);
+  if (mtr_idx==null){
+    return "cancelled";
   }
+  row_no = mtr_idx;
   building = table.getString(row_no,0);
   elec_bill = prompt("ইলেক্ট্রিক বিল লিখুনঃ ");
   if (!elec_bill) elec_bill = '0';
