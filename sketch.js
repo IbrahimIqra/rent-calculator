@@ -1,11 +1,11 @@
 
-let flat_info;
+let table;
 let start_btn;
 let started, meter_num;
 
 function preload(){
 
-  flat_info = loadTable('rents.csv','csv','header');
+  table = loadTable('rents.csv','csv','header');
 
 }
 
@@ -25,6 +25,10 @@ function draw() {
   else{
 
     elec_bill = window.prompt("Input Electric Bill: ");
+
+    print(table.getRowCount());
+    print(table.getColumnCount());
+    print(table.getString(0,0));
 
   }
 }
