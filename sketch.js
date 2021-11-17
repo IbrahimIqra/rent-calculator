@@ -7,7 +7,7 @@ let meter_num, elec_bill, owed;
 
 function preload(){
 
-  table = loadTable('rents.csv','csv','header');
+  table = loadTable('uttar.csv','csv','header');
 
 }
 
